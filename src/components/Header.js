@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Header() {
+  const { session, profile, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { session, signOut } = useAuth();
+
+  // This will log the profile object every time the header updates
+  console.log("Current user profile:", profile);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +25,10 @@ function Header() {
         <Link to="/">Home</Link>
         {session ? (
           <>
+            <Link to="/resources">Resources</Link>
+            {profile?.role === 'mentor' && (
+              <Link to="/add-resource">Add Resource</Link>
+            )}
             <Link to="/update-profile">My Profile</Link>
             <a href="#!" onClick={signOut}>Sign Out</a>
           </>
