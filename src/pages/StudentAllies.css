@@ -1,0 +1,186 @@
+:root {
+  --primary-blue: #2563eb;
+  --text-dark: #111827;
+  --success-green: #10b981;
+}
+
+.student-allies-container {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.student-allies-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.student-allies-container > p {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #6b7280;
+}
+
+.allies-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Resources (2/3) and Mentor Info (1/3) */
+  grid-template-rows: auto auto; 
+  gap: 2rem;
+}
+
+/* Specific grid layout for blocks */
+.resources-block {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3; /* Spans two rows */
+}
+.mentor-info-block {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+.chat-block {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+.career-path-block {
+  grid-column: 1 / 3; /* Full width at the bottom */
+  grid-row: 3 / 4;
+}
+
+.ally-block {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--primary-blue);
+}
+
+.ally-block h2 {
+  margin-top: 0;
+  color: var(--text-dark);
+  font-size: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Resources Block Styles */
+.subject-title {
+    color: var(--primary-blue);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #d1d5db;
+}
+.resource-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+.resource-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+.resource-info {
+    flex-grow: 1;
+    text-align: left;
+}
+.resource-title {
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+    line-height: 1.2;
+}
+.resource-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+}
+.resource-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--success-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.empty-state {
+    color: #9ca3af;
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed #e5e7eb;
+    border-radius: 8px;
+}
+
+/* Mentor Info Block Styles */
+.mentor-info-block p {
+    margin: 0.75rem 0;
+}
+.mentor-info-block strong {
+    color: var(--text-dark);
+}
+.mentor-time {
+    padding: 0.5rem;
+    background-color: #e0f2ff;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+}
+
+/* Chat Block Styles */
+.chat-block p {
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+.chat-button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--success-green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.chat-button:hover {
+    background-color: #059669;
+}
+
+/* Career Path Block Styles */
+.career-image-container {
+    padding: 2rem;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    height: 150px; /* Fixed height for visual consistency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.career-button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #f59e0b; /* Accent Gold */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.career-button:hover {
+    background-color: #d97706;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .allies-grid {
+    grid-template-columns: 1fr; /* Stack all blocks vertically on smaller screens */
+    grid-template-rows: auto;
+  }
+  .resources-block, .mentor-info-block, .chat-block, .career-path-block {
+    grid-column: 1 / 2;
+    grid-row: auto;
+  }
+}

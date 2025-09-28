@@ -1,0 +1,98 @@
+/* Reusing variables from index.css */
+:root {
+  --primary-blue: #2563eb;
+  --primary-dark-blue: #1d4ed8;
+  --text-dark: #111827;
+  --bg-light: #f9fafb;
+}
+
+.my-allies-container {
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.my-allies-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.my-allies-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-dark-blue);
+  margin-bottom: 0.5rem;
+}
+
+.ally-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ally-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.ally-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ally-card h3 {
+  margin-top: 0;
+  color: var(--text-dark);
+}
+
+.ally-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.action-button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.recommend-btn {
+  background-color: #10b981; /* Green color */
+  color: white;
+}
+
+.recommend-btn:hover {
+  background-color: #059669;
+}
+
+.chat-btn {
+  background-color: #f59e0b; /* Yellow/Gold color */
+  color: white;
+}
+
+.chat-btn:hover {
+  background-color: #d97706;
+}
+
+/* Style for the default/empty state card */
+.default-ally-card {
+    border: 2px dashed #d1d5db;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.default-ally-card p {
+    color: #6b7280;
+}

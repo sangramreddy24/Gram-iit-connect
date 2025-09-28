@@ -6,6 +6,13 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { session, signOut } = useAuth();
+  
+  // --- MOCK ROLE LOGIC ---
+  // In a real app, this should come from session.user.user_metadata.role
+  const mockUserRole = session ? (session.user?.user_metadata?.role || 'student') : null;
+  const isMentor = mockUserRole === 'mentor';
+  const isStudent = mockUserRole === 'student';
+  // ------------------------
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +29,10 @@ function Header() {
         <Link to="/">Home</Link>
         {session ? (
           <>
+            {/* Conditional Allies Link based on role */}
+            {isMentor && <Link to="/my-allies">My Allies (M)</Link>}
+            {isStudent && <Link to="/student/my-allies">My Allies (S)</Link>}
+            
             <Link to="/update-profile">My Profile</Link>
             <a href="#!" onClick={signOut}>Sign Out</a>
           </>
