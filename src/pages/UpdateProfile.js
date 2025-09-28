@@ -8,16 +8,19 @@ export default function UpdateProfile() {
   const { session } = useAuth();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // New state to control view
+  const [isEditing, setIsEditing] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Form state (only used when isEditing is true)
+  // Form state for editable fields
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [studentClass, setStudentClass] = useState('');
   const [universityName, setUniversityName] = useState('');
-  const [location, setLocation] = useState({ lat: null, lon: null });
-  const [locationStatus, setLocationStatus] = useState('Get My Location');
+  // New state for manual address input
+  const [state, setState] = useState('');
+  const [district, setDistrict] = useState('');
+  const [town, setTown] = useState('');
+  const [village, setVillage] = useState('');
 
   // Effect to fetch the profile data on load
   useEffect(() => {
@@ -36,10 +39,11 @@ export default function UpdateProfile() {
             setPhoneNumber(data.phone_number || '');
             setStudentClass(data.class || '');
             setUniversityName(data.university_name || '');
-            if (data.latitude) {
-              setLocation({ lat: data.latitude, lon: data.longitude });
-              setLocationStatus('Location Saved');
-            }
+            // Initialize new address fields
+            setState(data.state || '');
+            setDistrict(data.district || '');
+            setTown(data.nearby_town || '');
+            setVillage(data.village || '');
           }
         }
       } catch (error) {
@@ -52,23 +56,6 @@ export default function UpdateProfile() {
     return () => { isMounted = false; };
   }, [session]);
 
-  const handleLocation = () => {
-    if (!navigator.geolocation) {
-      setLocationStatus('Geolocation is not supported');
-      return;
-    }
-    setLocationStatus('Fetching...');
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLocationStatus('Location Fetched!');
-        setLocation({ lat: position.coords.latitude, lon: position.coords.longitude });
-      },
-      () => {
-        setLocationStatus('Permission denied');
-      }
-    );
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMessage('');
@@ -80,8 +67,11 @@ export default function UpdateProfile() {
       phone_number: phoneNumber,
       class: profile.role === 'student' ? studentClass : null,
       university_name: profile.role === 'mentor' ? universityName : null,
-      latitude: location.lat,
-      longitude: location.lon,
+      // Add new address fields to the update object
+      state: state,
+      district: district,
+      nearby_town: town,
+      village: village,
       updated_at: new Date(),
     };
 
@@ -92,33 +82,18 @@ export default function UpdateProfile() {
     if (error) {
       setSuccessMessage('Error updating profile: ' + error.message);
     } else {
-      setSuccessMessage('Profile updated successfully! Refreshing...');
-      // Update the main profile state with new data and switch back to view mode
+      setSuccessMessage('Profile updated successfully!');
       setProfile(updatedData);
       setIsEditing(false); 
-      // A small delay before clearing the message and location status for better UX
-      setTimeout(() => {
-        setSuccessMessage('');
-        if (updatedData.latitude) setLocationStatus('Location Saved');
-      }, 3000);
+      setTimeout(() => setSuccessMessage(''), 3000);
     }
   };
 
   if (loading) return (
-    <div className="onboarding-container">
-      <div className="onboarding-form">
-        <h2>Loading Profile...</h2>
-      </div>
-    </div>
+    <div className="onboarding-container"><div className="onboarding-form"><h2>Loading Profile...</h2></div></div>
   );
   if (!profile) return (
-    <div className="onboarding-container">
-      <div className="onboarding-form">
-        <h2>Profile Not Found</h2>
-        <p>Could not find user profile details.</p>
-        <Link to="/" className="back-button">Back to Home</Link>
-      </div>
-    </div>
+    <div className="onboarding-container"><div className="onboarding-form"><h2>Profile Not Found</h2><Link to="/" className="back-button">Back to Home</Link></div></div>
   );
 
   // --- Profile View Mode ---
@@ -127,46 +102,20 @@ export default function UpdateProfile() {
       <div className="onboarding-form">
         <h2>Your Profile Details</h2>
         
-        <div className="profile-detail">
-          <label>Email</label>
-          <p>{session.user.email}</p>
-        </div>
-        
-        <div className="profile-detail">
-          <label>Your Role</label>
-          <p style={{ textTransform: 'capitalize' }}>{profile.role}</p>
-        </div>
+        <div className="profile-detail"><label>Email</label><p>{session.user.email}</p></div>
+        <div className="profile-detail"><label>Your Role</label><p style={{ textTransform: 'capitalize' }}>{profile.role}</p></div>
+        <div className="profile-detail"><label>Full Name</label><p>{profile.full_name || 'N/A'}</p></div>
+        <div className="profile-detail"><label>Mobile Number</label><p>{profile.phone_number || 'N/A'}</p></div>
 
-        <div className="profile-detail">
-          <label>Full Name</label>
-          <p>{profile.full_name || 'N/A'}</p>
-        </div>
+        {profile.role === 'student' && (<div className="profile-detail"><label>Class</label><p>{profile.class || 'N/A'}</p></div>)}
+        {profile.role === 'mentor' && (<div className="profile-detail"><label>University Name</label><p>{profile.university_name || 'N/A'}</p></div>)}
         
         <div className="profile-detail">
-          <label>Mobile Number</label>
-          <p>{profile.phone_number || 'N/A'}</p>
-        </div>
-
-        {profile.role === 'student' && (
-          <div className="profile-detail">
-            <label>Class</label>
-            <p>{profile.class || 'N/A'}</p>
-          </div>
-        )}
-        
-        {profile.role === 'mentor' && (
-          <div className="profile-detail">
-            <label>University Name</label>
-            <p>{profile.university_name || 'N/A'}</p>
-          </div>
-        )}
-        
-        <div className="profile-detail">
-          <label>Location</label>
-          {profile.latitude ? (
-            <p>Lat: {profile.latitude.toFixed(4)}, Lon: {profile.longitude.toFixed(4)}</p>
+          <label>Address</label>
+          {profile.village ? (
+            <p>{`${profile.village}, ${profile.nearby_town}, ${profile.district}, ${profile.state}`}</p>
           ) : (
-            <p>Location not saved.</p>
+            <p>Address not saved.</p>
           )}
         </div>
         
@@ -184,42 +133,37 @@ export default function UpdateProfile() {
       <form className="onboarding-form" onSubmit={handleSubmit}>
         <h2>Update Your Profile</h2>
         
-        {/* Read-only fields */}
         <label>Email</label>
         <input type="email" value={session.user.email} disabled />
         <label>Your Role</label>
         <input type="text" value={profile.role} disabled style={{ textTransform: 'capitalize' }} />
 
-        {/* Editable fields */}
         <label>Full Name</label>
         <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
         <label>Mobile Number</label>
         <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
         
         {profile.role === 'student' && (
-          <>
-            <label>Class</label>
-            <input type="text" placeholder="e.g., 12th" value={studentClass} onChange={(e) => setStudentClass(e.target.value)} required />
-          </>
+          <><label>Class</label><input type="text" placeholder="e.g., 12th" value={studentClass} onChange={(e) => setStudentClass(e.target.value)} required /></>
         )}
         
         {profile.role === 'mentor' && (
-          <>
-            <label>University Name</label>
-            <input type="text" placeholder="e.g., IIT Bombay" value={universityName} onChange={(e) => setUniversityName(e.target.value)} required />
-          </>
+          <><label>University Name</label><input type="text" placeholder="e.g., IIT Bombay" value={universityName} onChange={(e) => setUniversityName(e.target.value)} required /></>
         )}
         
-        <label>Location</label>
-        <button type="button" onClick={handleLocation} className="location-btn">{locationStatus}</button>
-        {location.lat && <p className="location-coords">Lat: {location.lat.toFixed(4)}, Lon: {location.lon.toFixed(4)}</p>}
-        
+        <label>State</label>
+        <input type="text" placeholder="e.g., Telangana" value={state} onChange={(e) => setState(e.target.value)} />
+        <label>District</label>
+        <input type="text" placeholder="e.g., Warangal" value={district} onChange={(e) => setDistrict(e.target.value)} />
+        <label>Nearby Town</label>
+        <input type="text" placeholder="e.g., Hanamkonda" value={town} onChange={(e) => setTown(e.target.value)} />
+        <label>Village</label>
+        <input type="text" placeholder="e.g., Fathimapur" value={village} onChange={(e) => setVillage(e.target.value)} />
+
         {successMessage && <p className="success-message">{successMessage}</p>}
 
         <button type="submit" disabled={loading}>{loading ? 'Saving...' : 'Save Changes'}</button>
-        <button type="button" className="link-button" onClick={() => setIsEditing(false)} style={{ marginTop: '1rem' }}>
-          Cancel Update
-        </button>
+        <button type="button" className="link-button" onClick={() => setIsEditing(false)} style={{ marginTop: '1rem' }}>Cancel Update</button>
       </form>
     </div>
   );
