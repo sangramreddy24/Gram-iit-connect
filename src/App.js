@@ -3,7 +3,9 @@ import Home from './pages/Home';
 import AuthPage from './pages/AuthPage';
 import UpdateProfile from './pages/UpdateProfile';
 import ResourcesPage from './pages/ResourcesPage';
-import AddResourcePage from './pages/AddResourcePage'; // Import the new page
+import AddResourcePage from './pages/AddResourcePage';
+import SuccessStoriesPage from './pages/SuccessStoriesPage';
+import AddStoryPage from './pages/AddStoryPage'; // <-- Import the new page
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/update-profile" element={<UpdateProfile />} />
       <Route path="/resources" element={<ResourcesPage />} />
-      <Route path="/add-resource" element={<AddResourcePage />} /> {/* Add the new route */}
+      <Route path="/add-resource" element={<AddResourcePage />} />
+      <Route path="/success-stories" element={<SuccessStoriesPage />} />
+      <Route path="/add-story" element={<AddStoryPage />} /> {/* <-- Add the new route */}
     </Routes>
   );
 }
