@@ -7,9 +7,6 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // This will log the profile object every time the header updates
-  console.log("Current user profile:", profile);
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -23,12 +20,19 @@ function Header() {
       <Link to="/" className="logo">RuralEdu</Link>
       <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <Link to="/">Home</Link>
+        <Link to="/success-stories">Success Stories</Link>
         {session ? (
           <>
             <Link to="/resources">Resources</Link>
+            
+            {/* Mentor-only links are grouped here */}
             {profile?.role === 'mentor' && (
-              <Link to="/add-resource">Add Resource</Link>
+              <>
+                <Link to="/add-resource">Add Resource</Link>
+                <Link to="/add-story">Add Story</Link>
+              </>
             )}
+
             <Link to="/update-profile">My Profile</Link>
             <a href="#!" onClick={signOut}>Sign Out</a>
           </>
