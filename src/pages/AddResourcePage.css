@@ -1,0 +1,66 @@
+.add-resource-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.add-resource-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.add-resource-form h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.add-resource-form label {
+  display: block;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.add-resource-form input,
+.add-resource-form textarea,
+.add-resource-form select {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.add-resource-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.select-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.add-resource-form button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #10b981;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-message {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 500;
+}
