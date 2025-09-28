@@ -1,0 +1,88 @@
+.onboarding-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+.onboarding-form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+.onboarding-form h2 {
+  text-align: center;
+}
+.onboarding-form label {
+  display: block;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.onboarding-form input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.onboarding-form button {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  margin-top: 2rem;
+}
+.onboarding-form .location-btn {
+  background-color: #10b981;
+  margin-top: 0.5rem;
+}
+
+.onboarding-form .location-btn {
+  background-color: #10b981;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.onboarding-form .location-coords {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0;
+}
+
+/* Add these styles to the end of the file */
+.success-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.success-message {
+  color: #059669; /* A nice green color */
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #e5e7eb;
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #d1d5db;
+}

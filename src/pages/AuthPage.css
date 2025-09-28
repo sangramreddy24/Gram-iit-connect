@@ -1,0 +1,57 @@
+/* Other styles remain the same... */
+
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.auth-buttons button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.auth-buttons button:disabled {
+  background-color: #9ca3af;
+}
+
+/* Corrected this class name */
+.auth-buttons .secondary-btn {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* Styles for role selection */
+.role-selection h2 {
+  margin-bottom: 2rem;
+}
+
+.role-selection button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
